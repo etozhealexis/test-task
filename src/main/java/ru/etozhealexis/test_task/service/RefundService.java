@@ -2,7 +2,7 @@ package ru.etozhealexis.test_task.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.etozhealexis.test_task.config.ClientConfig;
+import ru.etozhealexis.test_task.config.dbentity.ClientConfig;
 
 import java.math.BigDecimal;
 
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 
 @Service
-public class ReturnService {
+public class RefundService {
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -21,7 +21,7 @@ public class ReturnService {
 
     private final BigDecimal COMMISSION = BigDecimal.valueOf(0.1);
 
-    public void returnMoney(BigDecimal amount) {
+    public void refund(BigDecimal amount) {
         BigDecimal bankMoney = amount.multiply(COMMISSION);
 
         clientService.subtractMoney(clientConfig.getId(), bankMoney);

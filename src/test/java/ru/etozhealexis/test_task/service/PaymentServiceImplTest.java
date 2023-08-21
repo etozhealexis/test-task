@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.etozhealexis.test_task.service.payment.PaymentServiceImpl;
+import ru.etozhealexis.test_task.service.RefundService;
 import ru.etozhealexis.test_task.service.transaction.ShopTransactionService;
 import ru.etozhealexis.test_task.service.transaction.TransactionService;
 
@@ -14,12 +16,12 @@ import java.util.Map;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentServiceTest {
+public class PaymentServiceImplTest {
 
     @InjectMocks
-    private PaymentService paymentService;
+    private PaymentServiceImpl paymentServiceImpl;
     @Mock
-    private ReturnService returnService;
+    private RefundService refundService;
     @Mock
     private ShopTransactionService transactionService;
     @Mock
@@ -31,7 +33,7 @@ public class PaymentServiceTest {
 
         when(transactionServiceMap.get("Shop")).thenReturn(transactionService);
 
-        paymentService.pay("Shop", amount);
+        paymentServiceImpl.pay("Shop", amount);
 
         verify(transactionService, times(1)).makeTransaction(amount);
     }
@@ -40,8 +42,8 @@ public class PaymentServiceTest {
     public void payTestWhenReturnSumIsBigger() {
         BigDecimal amount = BigDecimal.ONE;
 
-        paymentService.pay("Shop", amount);
+        paymentServiceImpl.pay("Shop", amount);
 
-        verify(returnService, times(1)).returnMoney(amount);
+        verify(refundService, times(1)).refund(amount);
     }
 }

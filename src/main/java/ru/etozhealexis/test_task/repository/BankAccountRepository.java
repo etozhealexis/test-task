@@ -22,30 +22,34 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Long> 
      * метод возвращения всего аккаунта банка
      * @return аккаунт банка
      */
-    @Query("SELECT ba FROM BankAccount ba WHERE ba.id = 1")
-    BankAccount getBankAccount();
+    @Query("SELECT ba FROM BankAccount ba WHERE ba.id = :id")
+    BankAccount getBankAccount(@Param("id") Long id);
 
     /**
      * метод увеличения средств, пришедших за коммиссию
+     *
      * @param amount - коммиссия
+     * @param id - id аккаунта банка
      */
     @Modifying
-    @Query("UPDATE BankAccount ba SET ba.commission = ba.commission + :amount WHERE ba.id = 1")
-    void updateCommission(@Param("amount") BigDecimal amount);
+    @Query("UPDATE BankAccount ba SET ba.commission = ba.commission + :amount WHERE ba.id = :id")
+    void updateCommission(@Param("amount") BigDecimal amount, @Param("id") Long id);
 
     /**
      * метод увеличения средств, пришедших за покупку в онлайн-покупках
+     *
      * @param amount - процент от покупки
+     * @param id
      */
     @Modifying
-    @Query("UPDATE BankAccount ba SET ba.onlineBonus = ba.onlineBonus + :amount WHERE ba.id = 1")
-    void updateOnlineBonus(@Param("amount") BigDecimal amount);
+    @Query("UPDATE BankAccount ba SET ba.onlineBonus = ba.onlineBonus + :amount WHERE ba.id = :id")
+    void updateOnlineBonus(@Param("amount") BigDecimal amount, @Param("id") Long id);
 
     /**
      * метод увеличения средств, пришедших за покупку в магазине
      * @param amount - процент от покупки
      */
     @Modifying
-    @Query("UPDATE BankAccount ba SET ba.shopBonus = ba.shopBonus + :amount WHERE ba.id = 1")
-    void updateShopBonus(@Param("amount") BigDecimal amount);
+    @Query("UPDATE BankAccount ba SET ba.shopBonus = ba.shopBonus + :amount WHERE ba.id = :id")
+    void updateShopBonus(@Param("amount") BigDecimal amount, @Param("id") Long id);
 }

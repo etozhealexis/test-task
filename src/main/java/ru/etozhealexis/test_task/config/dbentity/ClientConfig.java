@@ -1,4 +1,4 @@
-package ru.etozhealexis.test_task.config;
+package ru.etozhealexis.test_task.config.dbentity;
 
 import lombok.Getter;
 import lombok.Setter;

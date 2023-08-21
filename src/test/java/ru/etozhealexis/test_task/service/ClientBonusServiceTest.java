@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.etozhealexis.test_task.config.ClientConfig;
+import ru.etozhealexis.test_task.config.dbentity.ClientConfig;
 import ru.etozhealexis.test_task.model.Client;
 import ru.etozhealexis.test_task.util.TestFieldUtil;
 

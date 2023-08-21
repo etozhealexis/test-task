@@ -1,6 +1,9 @@
 client:
   id: 1
 
+bank:
+  id: 1
+
 spring:
   datasource:
     url: jdbc:postgresql://${TEST_TASK_DB_HOST:localhost}:${TEST_TASK_DB_PORT:5432}/test-task-db

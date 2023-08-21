@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  test-task-db:
+    container_name: test-task-db
+    image: postgres:14.1-alpine
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ${TEST_TASK_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${TEST_TASK_DB_PASSWORD:-12345}
+      POSTGRES_DB: test-task-db
+    restart: always
+
+  test-task:
+    container_name: test-task
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      _JAVA_OPTIONS: -Xmx256m
+      TEST_TASK_DB_USER: postgres
+      TEST_TASK_DB_PASSWORD: 12345
+      TEST_TASK_DB_HOST: test-task-db
+      TEST_TASK_DB_PORT: 5432
+    depends_on:
+      - test-task-db

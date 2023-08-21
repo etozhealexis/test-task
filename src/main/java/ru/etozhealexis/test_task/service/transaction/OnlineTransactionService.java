@@ -2,7 +2,7 @@ package ru.etozhealexis.test_task.service.transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.etozhealexis.test_task.config.ClientConfig;
+import ru.etozhealexis.test_task.config.dbentity.ClientConfig;
 import ru.etozhealexis.test_task.service.BankAccountService;
 import ru.etozhealexis.test_task.service.ClientService;
 

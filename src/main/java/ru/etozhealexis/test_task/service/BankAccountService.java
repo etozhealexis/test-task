@@ -3,6 +3,7 @@ package ru.etozhealexis.test_task.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.etozhealexis.test_task.config.dbentity.BankAccountConfig;
 import ru.etozhealexis.test_task.dto.BankAccountEMoneyDTO;
 import ru.etozhealexis.test_task.mapper.BankAccountMapper;
 import ru.etozhealexis.test_task.model.BankAccount;
@@ -20,21 +21,23 @@ public class BankAccountService {
     private BankAccountRepository bankAccountRepository;
     @Autowired
     private BankAccountMapper bankAccountMapper;
+    @Autowired
+    private BankAccountConfig bankAccountConfig;
 
     /**
      * метод, отвечающий за получение бонусов по онлайн-покупкам и магазину
      * @return бонусы по онлайн-покупкам и магазину в виде DTO
      */
     public BankAccountEMoneyDTO getBankAccountEMoneyDTO() {
-        return bankAccountMapper.mapToBankAccountEMoneyDTO(getBankAccount());
+        return bankAccountMapper.mapToBankAccountEMoneyDTO(getBankAccount(bankAccountConfig.getId()));
     }
 
     /**
      * метод, отвечающий за получение всего аккаунта банка
      * @return аккаунт банка
      */
-    public BankAccount getBankAccount() {
-        return bankAccountRepository.getBankAccount();
+    public BankAccount getBankAccount(Long id) {
+        return bankAccountRepository.getBankAccount(bankAccountConfig.getId());
     }
 
     /**
@@ -43,7 +46,7 @@ public class BankAccountService {
      */
     @Transactional
     public void updateCommission(BigDecimal amount) {
-        bankAccountRepository.updateCommission(amount);
+        bankAccountRepository.updateCommission(amount, bankAccountConfig.getId());
     }
 
     /**
@@ -52,7 +55,7 @@ public class BankAccountService {
      */
     @Transactional
     public void updateOnlineBonus(BigDecimal amount) {
-        bankAccountRepository.updateOnlineBonus(amount);
+        bankAccountRepository.updateOnlineBonus(amount, bankAccountConfig.getId());
     }
 
     /**
@@ -61,6 +64,6 @@ public class BankAccountService {
      */
     @Transactional
     public void updateShopBonus(BigDecimal amount) {
-        bankAccountRepository.updateShopBonus(amount);
+        bankAccountRepository.updateShopBonus(amount, bankAccountConfig.getId());
     }
 }
